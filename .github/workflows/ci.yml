@@ -74,6 +74,10 @@ jobs:
           draft: false
           prerelease: false
 
+      - run: |
+          zip -r safeip.zip safeip
+        name: Zip Artifacts
+
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
@@ -81,6 +85,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./safeip
+          asset_path: ./safeip.zip
           asset_name: safeip
-          asset_content_type: application/octet-stream
+          asset_content_type: application/zip
