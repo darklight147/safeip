@@ -21,6 +21,7 @@ jobs:
             windows-latest,
             [self-hosted, Linux, arm64],
           ]
+      fail-fast: false
 
     steps:
       - name: Checkout Repository
