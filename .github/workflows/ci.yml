@@ -41,7 +41,7 @@ jobs:
       - name: Archive Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: safeip-${{ runner.os }}
+          name: safeip-${{ runner.os }}-${{ runner.arch }}
           path: safeip
 
   release:
