@@ -18,11 +18,23 @@ go build
 
 **Basic Usage:**
 
+This will read from `input.txt`, mask public IPv4 addresses, and print the modified text to the console.
+
 ```bash
 cat input.txt | safeip
 ```
 
-This will read from `input.txt`, mask public IPv4 addresses, and print the modified text to the console.
+Masking public IPv4 addresses is the default behavior of SafeIP. The command above will read from `input.txt`, mask public IPv4 addresses, and print the modified text to the console.
+
+```bash
+kubectl describe nodes | safeip
+```
+
+Masking IPs from logs
+
+```bash
+kubectl logs pod-name | safeip
+```
 
 **Masking DNS-like Entries:**
 
