@@ -20,7 +20,6 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          stable: true
           check-latest: true
 
       - name: Build
@@ -37,16 +36,20 @@ jobs:
 
     needs: build
 
+    strategy:
+      matrix:
+        os: [Linux, macOS, Windows]
+
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v3
         with:
-          name: safeip-ubuntu-latest
+          name: safeip-${{ matrix.os }}
 
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.20
+          check-latest: true
 
       - name: Create Release
         id: create_release
@@ -71,5 +74,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./safeip
-          asset_name: safeip-${{ runner.os }}
+          asset_name: safeip-${{ matrix.os }}
           asset_content_type: application/octet-stream
