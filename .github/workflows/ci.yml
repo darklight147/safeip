@@ -9,6 +9,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  GO_VERSION: 1.21.3
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -32,7 +35,7 @@ jobs:
         uses: actions/setup-go@v4
         with:
           check-latest: true
-          go-version: 1.21.3
+          go-version: ${{ env.GO_VERSION }}
           # architecture: ${{ runner.arch }}
 
       - name: Build
@@ -61,7 +64,7 @@ jobs:
         uses: actions/setup-go@v4
         with:
           check-latest: true
-          go-version: 1.21.3
+          go-version: ${{ env.GO_VERSION }}
 
       - name: Create Release
         id: create_release
@@ -88,5 +91,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./safeip.zip
-          asset_name: safeip
+          asset_name: safeip.zip
           asset_content_type: application/zip
