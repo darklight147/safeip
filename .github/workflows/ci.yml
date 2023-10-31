@@ -39,15 +39,11 @@ jobs:
 
     permissions: write-all
 
-    strategy:
-      matrix:
-        os: [Linux, macOS, Windows]
-
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v3
         with:
-          name: safeip-${{ matrix.os }}
+          path: safeip
 
       - name: Set up Go
         uses: actions/setup-go@v4
@@ -77,6 +73,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./safeip
-          asset_name: safeip-${{ matrix.os }}
+          asset_path: ./safeip/*
+          asset_name: safeip
           asset_content_type: application/octet-stream
