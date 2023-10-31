@@ -32,8 +32,8 @@ jobs:
         uses: actions/setup-go@v4
         with:
           check-latest: true
-          go-version: 1.20
-          architecture: ${{ runner.arch }}
+          go-version: 1.21.3
+          # architecture: ${{ runner.arch }}
 
       - name: Build
         run: go build -o safeip
