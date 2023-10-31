@@ -14,11 +14,13 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        arch: [amd64, arm64]
-        exclude:
-          - os: windows-latest
-            arch: arm64
+        os:
+          [
+            ubuntu-latest,
+            macos-latest,
+            windows-latest,
+            [self-hosted, Linux, arm64],
+          ]
 
     steps:
       - name: Checkout Repository
@@ -29,7 +31,6 @@ jobs:
         with:
           check-latest: true
           # go-version: 1.20
-          architecture: ${{ matrix.arch }}
 
       - name: Build
         run: go build -o safeip
@@ -65,12 +66,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v1.0.0 # Set your desired version tag
-          release_name: Release v1.0.0 # Set your release name
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           body: |
-            Release Notes for v1.0.0:
-            - Add feature X
-            - Fix bug Y
+            ${{ github.event.head_commit.message }}
           draft: false
           prerelease: false
 
