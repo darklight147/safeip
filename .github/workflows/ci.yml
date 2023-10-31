@@ -83,13 +83,22 @@ jobs:
           zip -r safeip.zip safeip
         name: Zip Artifacts
 
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
+      # - name: Upload Release Asset
+      #   id: upload-release-asset
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./safeip.zip
+      #     asset_name: safeip.zip
+      #     asset_content_type: application/zip
+
+      - name: Upload Release Assets
+        id: upload-release-assets
+        uses: dwenegar/upload-release-assets@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./safeip.zip
-          asset_name: safeip.zip
-          asset_content_type: application/zip
+          release_id: ${{ steps.create_release.outputs.id }}
+          assets_path: ./safeip
