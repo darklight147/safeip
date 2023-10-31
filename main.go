@@ -2,12 +2,20 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"os"
 	"regexp"
 	"strconv"
 	"strings"
 )
+
+var maskDNS bool
+
+func init() {
+	flag.BoolVar(&maskDNS, "mask-dns", false, "Mask DNS-like entries")
+	flag.Parse()
+}
 
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
@@ -30,6 +38,17 @@ func maskPublicIPs(input string) string {
 	for _, match := range matches {
 		if isPublicIPv4(match) {
 			input = strings.Replace(input, match, "XXX.XXX.XXX.XXX", -1)
+		}
+	}
+
+	if maskDNS {
+		dnsRegex := `(\b(?:[a-zA-Z0-9-]+\.){2,}[a-zA-Z]{2,}\b)`
+		dnsRe := regexp.MustCompile(dnsRegex)
+		dnsMatches := dnsRe.FindAllString(input, -1)
+		for _, match := range dnsMatches {
+			if !strings.Contains(match, ".internal") {
+				input = strings.Replace(input, match, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", -1)
+			}
 		}
 	}
 

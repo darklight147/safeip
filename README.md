@@ -1,0 +1,63 @@
+# SafeIP
+
+SafeIP is a command-line tool written in Go that helps you mask public IPv4 addresses and DNS-like entries from your text input. It's useful for redacting sensitive information from logs or other textual data.
+
+## Usage
+
+### Installation
+
+To use SafeIP, you'll need to compile it from source. Make sure you have Go installed on your system.
+
+```bash
+git clone $(git remote get-url origin)
+cd safeip
+go build
+```
+
+### Usage
+
+**Basic Usage:**
+
+```bash
+cat input.txt | safeip
+```
+
+This will read from `input.txt`, mask public IPv4 addresses, and print the modified text to the console.
+
+**Masking DNS-like Entries:**
+
+```bash
+cat input.txt | safeip --mask-dns
+```
+
+When the `--mask-dns` flag is set to `true`, SafeIP will also mask DNS-like entries, providing an extra layer of privacy.
+
+### Example
+
+**Before Using SafeIP:**
+
+```
+Addresses:
+  InternalIP:   172.31.16.128
+  ExternalIP:   54.87.142.142
+  InternalDNS:  ip-172-31-16-128.ec2.internal
+  Hostname:     ip-172-31-16-128.ec2.internal
+  ExternalDNS:  ec2-54-87-142-142.compute-1.amazonaws.com
+```
+
+**After Using SafeIP:**
+
+```
+Addresses:
+  InternalIP:   172.31.16.128
+  ExternalIP:   XXX.XXX.XXX.XXX
+  InternalDNS:  ip-172-31-16-128.ec2.internal
+  Hostname:     ip-172-31-16-128.ec2.internal
+  ExternalDNS:  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+```
+
+In the example above, SafeIP masked the external IP address and DNS-like entry, providing an added layer of security.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
