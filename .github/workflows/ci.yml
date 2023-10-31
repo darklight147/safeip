@@ -32,7 +32,7 @@ jobs:
         with:
           check-latest: true
           go-version: 1.21.3
-          architecture: ${{ runner.arch }}
+          # architecture: ${{ runner.arch }}
 
       - name: Build
         run: go build -o safeip
