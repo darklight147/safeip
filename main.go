@@ -37,46 +37,26 @@ var completionCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(shellCompletionFunction(args[0]))
 	},
-	Args: cobra.ExactArgs(1),
+	Args:      cobra.ExactArgs(1),
+	ValidArgs: []string{"bash", "zsh", "fish"},
 }
 
 func shellCompletionFunction(shell string) string {
 	// Define the completion script
-	if shell == "bash" {
-		return `_safep() {
-			local cur prev opts
-			COMPREPLY=()
-			cur="${COMP_WORDS[COMP_CWORD]}"
-			prev="${COMP_WORDS[COMP_CWORD-1]}"
-			opts="--mask --mask-dns"
-		
-			case "${prev}" in
-				--mask)
-					COMPREPLY=()
-					return 0
-					;;
-				*)
-					COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-					return 0
-					;;
-			esac
-		}
-		complete -F _safep safeip`
-	} else if shell == "zsh" {
-		return `#compdef safeip
+	switch shell {
+	case "bash":
+		rootCmd.GenBashCompletion(os.Stdout)
+		break
+	case "zsh":
+		rootCmd.GenZshCompletion(os.Stdout)
+		break
+	case "fish":
+		rootCmd.GenFishCompletion(os.Stdout, true)
+		break
 
-		_safep() {
-			local -a opts
-			opts=(
-				"--mask[Mask public IPs]"
-				"--mask-dns[Mask DNS-like entries]"
-			)
-			_describe -t options 'safep options' opts
-		}
-		`
-	} else {
-		return ""
 	}
+
+	return ""
 
 }
 
