@@ -83,6 +83,9 @@ jobs:
           zip -r safeip.zip safeip
         name: Zip Artifacts
 
+      - name: List Artifacts
+        run: ls -Rl safeip
+
       - uses: ncipollo/release-action@v1
         with:
           artifacts: ./safeip/safeip/*
