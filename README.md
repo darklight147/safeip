@@ -2,7 +2,7 @@
 
 SafeIP is a command-line tool written in Go that helps you mask public IPv4 addresses and DNS-like entries from your text input. It's useful for redacting sensitive information from logs or other textual data to avoid people eyeballing your data 🕵️
 
-## Usage
+## Build
 
 ### Installation
 
@@ -25,6 +25,10 @@ mv safeip /usr/bin
 safeip --help
 
 ```
+
+## Get a pre-built binary
+
+You can download a pre-built binary for your system from the [releases page](https://github.com/darklight147/safeip/releases).
 
 ### Usage
 
