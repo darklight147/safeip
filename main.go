@@ -2,31 +2,94 @@ package main
 
 import (
 	"bufio"
-	"flag"
 	"fmt"
 	"os"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/spf13/cobra"
 )
 
 var maskDNS bool
+var customMask string
+
+var rootCmd = &cobra.Command{
+	Use:   "safeip",
+	Short: "Mask public IPs and DNS-like entries",
+	Run: func(cmd *cobra.Command, args []string) {
+		scanner := bufio.NewScanner(os.Stdin)
+		for scanner.Scan() {
+			line := scanner.Text()
+			maskedLine := maskPublicIPs(line)
+			fmt.Println(maskedLine)
+		}
+
+		if err := scanner.Err(); err != nil {
+			fmt.Fprintln(os.Stderr, "error:", err)
+		}
+	},
+}
+
+var completionCmd = &cobra.Command{
+	Use:   "completion",
+	Short: "Generates bash completion scripts",
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println(shellCompletionFunction(args[0]))
+	},
+	Args: cobra.ExactArgs(1),
+}
+
+func shellCompletionFunction(shell string) string {
+	// Define the completion script
+	if shell == "bash" {
+		return `_safep() {
+			local cur prev opts
+			COMPREPLY=()
+			cur="${COMP_WORDS[COMP_CWORD]}"
+			prev="${COMP_WORDS[COMP_CWORD-1]}"
+			opts="--mask --mask-dns"
+		
+			case "${prev}" in
+				--mask)
+					COMPREPLY=()
+					return 0
+					;;
+				*)
+					COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+					return 0
+					;;
+			esac
+		}
+		complete -F _safep safeip`
+	} else if shell == "zsh" {
+		return `#compdef safeip
+
+		_safep() {
+			local -a opts
+			opts=(
+				"--mask[Mask public IPs]"
+				"--mask-dns[Mask DNS-like entries]"
+			)
+			_describe -t options 'safep options' opts
+		}
+		`
+	} else {
+		return ""
+	}
+
+}
 
 func init() {
-	flag.BoolVar(&maskDNS, "mask-dns", false, "Mask DNS-like entries")
-	flag.Parse()
+	rootCmd.Flags().BoolVar(&maskDNS, "mask-dns", false, "Mask DNS-like entries")
+	rootCmd.Flags().StringVar(&customMask, "mask", "XXX.XXX.XXX.XXX", "Custom mask to use")
+	rootCmd.AddCommand(completionCmd)
 }
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-	for scanner.Scan() {
-		line := scanner.Text()
-		maskedLine := maskPublicIPs(line)
-		fmt.Println(maskedLine)
-	}
-
-	if err := scanner.Err(); err != nil {
-		fmt.Fprintln(os.Stderr, "error:", err)
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
 	}
 }
 
@@ -37,7 +100,7 @@ func maskPublicIPs(input string) string {
 
 	for _, match := range matches {
 		if isPublicIPv4(match) {
-			input = strings.Replace(input, match, "XXX.XXX.XXX.XXX", -1)
+			input = strings.Replace(input, match, customMask, -1)
 		}
 	}
 
@@ -47,7 +110,7 @@ func maskPublicIPs(input string) string {
 		dnsMatches := dnsRe.FindAllString(input, -1)
 		for _, match := range dnsMatches {
 			if !strings.Contains(match, ".internal") {
-				input = strings.Replace(input, match, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", -1)
+				input = strings.Replace(input, match, customMask, -1)
 			}
 		}
 	}
