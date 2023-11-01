@@ -86,6 +86,34 @@ Addresses:
 
 In the example above, SafeIP masked the external IP address and DNS-like entry, providing an added layer of security.
 
+### Flags
+
+| Flag          | Description           | Default |
+| ------------- | --------------------- | ------- |
+| `--mask-ipv4` | Mask IPv4 addresses   | `true`  |
+| `--mask-dns`  | Mask DNS-like entries | `false` |
+| `--mask`      | Custom regex to mask  | `""`    |
+
+## Completion
+
+### Bash
+
+```bash
+source <(safeip completion bash)
+```
+
+### Zsh
+
+```bash
+source <(safeip completion zsh)
+```
+
+### Fish
+
+```bash
+safeip completion fish | source
+```
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
