@@ -85,9 +85,11 @@ jobs:
       - name: List Artifacts
         run: ls -Rl safeip
 
-      - uses: ncipollo/release-action@v1
+      - uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          artifacts: ./safeip/safeip.zip
-          name: safeip
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: v1.0.${{ github.run_id }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./safeip.zip
+          asset_name: safeip.zip
+          asset_content_type: application/zip
