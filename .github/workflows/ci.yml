@@ -88,4 +88,4 @@ jobs:
           artifacts: ./safeip/*
           name: safeip
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: v1.0.${{ github.run_number }}
+          tag: v1.0.${{ github.run_id }}
