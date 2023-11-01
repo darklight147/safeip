@@ -31,6 +31,17 @@ var rootCmd = &cobra.Command{
 		}
 	},
 	Long: `SafeIP is a command-line tool written in Go that helps you mask public IPv4 addresses and DNS-like entries from your text input. It's useful for redacting sensitive information from logs or other textual data to avoid people eyeballing your data 🕵️`,
+	Example: `  
+
+	  # You can use it with files
+	  cat /var/log/nginx/access.log | safeip
+
+	  # You can also use it with pipes
+	  safeip --mask-dns --mask=REDACTED --dns-regex="(\b(?:[a-zA-Z0-9-]+\.){2,}[a-zA-Z]{2,}\b)" < /var/log/nginx/access.log
+
+	  # You can also use it with kubectl
+	  kubectl cluster-info dump | safeip --mask-dns --mask=🥷🏻
+	  `,
 }
 
 var completionCmd = &cobra.Command{
