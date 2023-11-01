@@ -88,11 +88,12 @@ In the example above, SafeIP masked the external IP address and DNS-like entry, 
 
 ### Flags
 
-| Flag          | Description           | Default |
-| ------------- | --------------------- | ------- |
-| `--mask-ipv4` | Mask IPv4 addresses   | `true`  |
-| `--mask-dns`  | Mask DNS-like entries | `false` |
-| `--mask`      | Custom regex to mask  | `""`    |
+| Flag          | Description                   | Default                                          |
+| ------------- | ----------------------------- | ------------------------------------------------ |
+| `--mask-dns`  | Mask DNS-like entries         | `false`                                          |
+| `--mask`      | Custom String to replace with | `"XXXXXX"`                                       |
+| `--dns-regex` | Custom String to replace with | `"(\\b(?:[a-zA-Z0-9-]+\\.){2,}[a-zA-Z]{2,}\\b)"` |
+| `--help`      | Help for SafeIP               |                                                  |
 
 ## Completion
 
