@@ -29,6 +29,7 @@ var rootCmd = &cobra.Command{
 			fmt.Fprintln(os.Stderr, "error:", err)
 		}
 	},
+	Long: `SafeIP is a command-line tool written in Go that helps you mask public IPv4 addresses and DNS-like entries from your text input. It's useful for redacting sensitive information from logs or other textual data to avoid people eyeballing your data 🕵️`,
 }
 
 var completionCmd = &cobra.Command{
