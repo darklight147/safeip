@@ -9,9 +9,21 @@ SafeIP is a command-line tool written in Go that helps you mask public IPv4 addr
 To use SafeIP, you'll need to compile it from source. Make sure you have Go installed on your system.
 
 ```bash
-git clone $(git remote get-url origin)
+git clone https://github.com/darklight147/safeip.git
 cd safeip
-go build
+
+go mod download
+
+go build -o safeip
+
+mv safeip /usr/local/bin
+
+# or
+
+mv safeip /usr/bin
+
+safeip --help
+
 ```
 
 ### Usage
