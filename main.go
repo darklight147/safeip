@@ -13,6 +13,7 @@ import (
 
 var maskDNS bool
 var customMask string
+var customDnsRegex string
 
 var rootCmd = &cobra.Command{
 	Use:   "safeip",
@@ -64,6 +65,7 @@ func shellCompletionFunction(shell string) string {
 func init() {
 	rootCmd.Flags().BoolVar(&maskDNS, "mask-dns", false, "Mask DNS-like entries")
 	rootCmd.Flags().StringVar(&customMask, "mask", "XXX.XXX.XXX.XXX", "Custom mask to use")
+	completionCmd.Flags().StringVar(&customDnsRegex, "dns-regex", `(\b(?:[a-zA-Z0-9-]+\.){2,}[a-zA-Z]{2,}\b)`, "Custom regex to use for DNS-like entries")
 	rootCmd.AddCommand(completionCmd)
 }
 
@@ -86,7 +88,7 @@ func maskPublicIPs(input string) string {
 	}
 
 	if maskDNS {
-		dnsRegex := `(\b(?:[a-zA-Z0-9-]+\.){2,}[a-zA-Z]{2,}\b)`
+		dnsRegex := customDnsRegex
 		dnsRe := regexp.MustCompile(dnsRegex)
 		dnsMatches := dnsRe.FindAllString(input, -1)
 		for _, match := range dnsMatches {
