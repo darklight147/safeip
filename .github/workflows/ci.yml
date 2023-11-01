@@ -85,7 +85,7 @@ jobs:
 
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: ./safeip/*
+          artifacts: ./safeip/safeip/*
           name: safeip
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: v1.0.${{ github.run_id }}
