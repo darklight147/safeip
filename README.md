@@ -4,7 +4,7 @@ SafeIP is a command-line tool written in Go that helps you mask public IPv4 addr
 
 ## Demo
 
-![SafeIP Demo](output.gif)
+![SafeIP Demo](assets/demo.gif)
 
 ## Build
 
