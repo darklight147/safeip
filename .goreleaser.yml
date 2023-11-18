@@ -20,7 +20,7 @@ archives:
     format: tar.gz
     files:
       - README.md
-      - completions/*
+      - completions/**
 
 # Release configuration
 release:
@@ -49,9 +49,10 @@ brews:
 before:
   hooks:
     - mkdir completions
-    - go run main.go completion zsh > completions/goreleaser.zsh && chmod 755 completions/goreleaser.zsh
-    - go run main.go completion fish > completions/goreleaser.fish && chmod 755 completions/goreleaser.fish
-    - go run main.go completion bash > completions/goreleaser.bash && chmod 755 completions/goreleaser.bash
+    - go run main.go completion zsh >"completions/goreleaser.zsh" && chmod 755 completions/goreleaser.zsh
+    - go run main.go completion fish >"completions/goreleaser.fish" && chmod 755 completions/goreleaser.fish
+    - go run main.go completion bash >"completions/goreleaser.bash" && chmod 755 completions/goreleaser.bash
+    - ls -la completions
 
 checksum:
   name_template: "checksums.txt"
