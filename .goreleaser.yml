@@ -41,3 +41,6 @@ before:
     - go run main.go completion zsh > completions/goreleaser.zsh
     - go run main.go completion fish > completions/goreleaser.fish
     - go run main.go completion bash > completions/goreleaser.bash
+
+checksum:
+  name_template: "checksums.txt"
