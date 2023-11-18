@@ -35,3 +35,13 @@ brews:
     commit_author:
       name: darklight147
       email: belkamelmohamed@gmail.com
+    extra_install: |
+      zsh_completion.install "completions/goreleaser.zsh" => "_goreleaser"
+      fish_completion.install "completions/goreleaser.fish"
+      bash_completion.install "completions/goreleaser.bash"
+
+before:
+  hooks:
+    - go run main.go completion zsh > completions/goreleaser.zsh
+    - go run main.go completion fish > completions/goreleaser.fish
+    - go run main.go completion bash > completions/goreleaser.bash
