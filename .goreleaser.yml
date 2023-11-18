@@ -32,8 +32,8 @@ brews:
   - name: safeip
     homepage: https://github.com/darklight147/safeip
     tap:
-      owner: quasimodo147
+      owner: darklight147
       name: safeip
     commit_author:
-      name: quasimodo147
+      name: darklight147
       email: belkamelmohamed@gmail.com
