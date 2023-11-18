@@ -75,8 +75,8 @@ func shellCompletionFunction(shell string) string {
 
 func init() {
 	rootCmd.Flags().BoolVar(&maskDNS, "mask-dns", false, "Mask DNS-like entries")
-	rootCmd.Flags().StringVar(&customMask, "mask", "XXX.XXX.XXX.XXX", "Custom mask to use")
-	rootCmd.Flags().StringVar(&customDnsRegex, "dns-regex", `(\b(?:[a-zA-Z0-9-]+\.){2,}[a-zA-Z]{2,}\b)`, "Custom regex to use for DNS-like entries")
+	rootCmd.Flags().StringVarP(&customMask, "mask", "m", "XXX.XXX.XXX.XXX", "Custom mask to use")
+	rootCmd.Flags().StringVarP(&customDnsRegex, "dns-regex", "d", `(\b(?:[a-zA-Z0-9-]+\.){2,}[a-zA-Z]{2,}\b)`, "Custom regex to use for DNS-like entries")
 	rootCmd.AddCommand(completionCmd)
 }
 
