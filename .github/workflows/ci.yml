@@ -48,7 +48,12 @@ jobs:
           go mod verify
 
       - name: Build
+        if: ${{ matrix.os != 'windows-latest' }}
         run: go build -o safeip
+
+      - name: Build
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: go build -o safeip.exe
 
       - name: Archive Artifacts
         uses: actions/upload-artifact@v3
