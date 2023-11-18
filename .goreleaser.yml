@@ -14,7 +14,7 @@ builds:
     env:
       - CGO_ENABLED=0
     flags:
-      - -mod=vendor
+      - -ldflags="-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}"
 
 # Archive configuration
 archives:
