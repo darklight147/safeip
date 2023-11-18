@@ -1,0 +1,42 @@
+# Project name
+project_name: safeip
+
+# Build configuration
+builds:
+  - binary: safeip
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -mod=vendor
+
+# Archive configuration
+archives:
+  - name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format: tar.gz
+
+# Release configuration
+release:
+  github:
+    owner: quasimodo
+    name: safeip
+  prerelease: auto
+
+universal_binaries:
+  - replace: true
+
+brews:
+  - name: safeip
+    homepage: https://github.com/darklight147/safeip
+    tap:
+      owner: quasimodo
+      name: safeip
+    commit_author:
+      name: quasimodo
+      email: belkamelmohamed@gmail.com
