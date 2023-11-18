@@ -30,4 +30,4 @@ jobs:
           args: release --rm-dist
           version: v1.22.1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
