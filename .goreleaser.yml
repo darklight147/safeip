@@ -20,7 +20,10 @@ archives:
     format: tar.gz
     files:
       - README.md
-      - completions/**
+      - completions/*
+    builds_info:
+      group: root
+      owner: root
 
 # Release configuration
 release:
