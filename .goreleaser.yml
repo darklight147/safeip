@@ -35,11 +35,14 @@ brews:
     commit_author:
       name: darklight147
       email: belkamelmohamed@gmail.com
-    extra_install: |
-      zsh_completion.install "completions/goreleaser.zsh" => "_goreleaser"
-      bash_completion.install "completions/goreleaser.bash" => "goreleaser"
-      fish_completion.install "completions/goreleaser.fish"
-      bin.install "safeip"
+
+    post_install: |
+      echo "To get started:"
+      echo "  safeip --help"
+      echo "Documentation can be found at https://github.com/darklight147/safeip"
+      echo "For completion use"
+
+      echo " source <(safeip completion zsh) # or bash, fish"
 
 before:
   hooks:
