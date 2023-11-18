@@ -18,6 +18,8 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
 
+    name: build-${{ matrix.os }}
+
     strategy:
       matrix:
         os:
@@ -54,44 +56,17 @@ jobs:
           name: safeip-${{ runner.os }}-${{ runner.arch }}
           path: safeip
 
-  release:
-    runs-on: ubuntu-latest
+      - name: Test if IP is masked
+        run: |
+          chmod +x safeip
+          echo 9.9.9.9 | ./safeip > test-1.txt
 
-    needs: build
+          MASK="XXX.XXX.XXX.XXX"
 
-    permissions: write-all
 
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          path: safeip
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v1.0.${{ github.run_number }}
-          release_name: Release v1.0.${{ github.run_number }}
-          body: |
-            ${{ github.event.head_commit.message }}
-          draft: false
-          prerelease: false
-
-      - run: |
-          zip -r safeip.zip safeip
-        name: Zip Artifacts
-
-      - name: List Artifacts
-        run: ls -Rl safeip
-
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./safeip.zip
-          asset_name: safeip.zip
-          asset_content_type: application/zip
+          if grep -q $MASK test-1.txt; then
+            echo "test-1 passed"
+          else
+            echo "test-1 failed"
+            exit 1
+          fi
