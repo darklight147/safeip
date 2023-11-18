@@ -39,10 +39,10 @@ brews:
       name: darklight147
       email: belkamelmohamed@gmail.com
 
-    extra_install: |-
-      bash_completion.install "completions/goreleaser.bash" => "goreleaser"
-      zsh_completion.install "completions/goreleaser.zsh" => "_goreleaser"
-      fish_completion.install "completions/goreleaser.fish"
+    # extra_install: |-
+    #   bash_completion.install "completions/goreleaser.bash" => "goreleaser"
+    #   zsh_completion.install "completions/goreleaser.zsh" => "_goreleaser"
+    #   fish_completion.install "completions/goreleaser.fish"
 
     description: "safeip is a CLI tool to Mask IP addresses and DNS-Like entries from STDIN or FILE."
 
