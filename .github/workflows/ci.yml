@@ -56,7 +56,8 @@ jobs:
           name: safeip-${{ runner.os }}-${{ runner.arch }}
           path: safeip
 
-      - name: Test if IP is masked
+      - name: Test if IP is masked ${{ runner.os }}
+        if: ${{ matrix.os != 'windows-latest' }}
         run: |
           chmod +x safeip
           echo 9.9.9.9 | ./safeip > test-1.txt
@@ -70,3 +71,18 @@ jobs:
             echo "test-1 failed"
             exit 1
           fi
+
+      - name: Test if IP is masked ${{ runner.os }}
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          # BEGIN: ed8c6549bwf9
+          $env:MASK = "XXX.XXX.XXX.XXX"
+
+          & ./safeip.exe | Out-File -FilePath test-1.txt
+
+          if (Select-String -Pattern $env:MASK -Path test-1.txt) {
+            Write-Host "test-1 passed"
+          } else {
+            Write-Host "test-1 failed"
+            exit 1
+          }
