@@ -80,13 +80,17 @@ jobs:
       - name: Test if IP is masked ${{ runner.os }}
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          $env:MASK = "XXX.XXX.XXX.XXX"
+          Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
-          & ./safeip.exe | Out-File -FilePath test-1.txt
+          Set-ItemProperty -Path .\safeip.exe -Name IsReadOnly -Value $false
 
-          if (Select-String -Pattern $env:MASK -Path test-1.txt) {
-            Write-Host "test-1 passed"
+          echo "9.9.9.9" | .\safeip.exe > test-1.txt
+
+          $MASK = "XXX.XXX.XXX.XXX"
+
+          if (Select-String -Path .\test-1.txt -Pattern $MASK) {
+              Write-Host "test-1 passed"
           } else {
-            Write-Host "test-1 failed"
-            exit 1
+              Write-Host "test-1 failed"
+              exit 1
           }
