@@ -59,13 +59,10 @@ func shellCompletionFunction(shell string) string {
 	switch shell {
 	case "bash":
 		rootCmd.GenBashCompletion(os.Stdout)
-		break
 	case "zsh":
 		rootCmd.GenZshCompletion(os.Stdout)
-		break
 	case "fish":
 		rootCmd.GenFishCompletion(os.Stdout, true)
-		break
 
 	}
 
