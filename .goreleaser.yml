@@ -23,9 +23,6 @@ archives:
 
 # Release configuration
 release:
-  github:
-    owner: quasimodo
-    name: safeip
   prerelease: auto
 
 universal_binaries:
