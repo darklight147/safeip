@@ -13,8 +13,8 @@ builds:
       - arm64
     env:
       - CGO_ENABLED=0
-    flags:
-      - -ldflags="-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}"
+    # flags:
+    # - -ldflags="-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}"
 
 # Archive configuration
 archives:
