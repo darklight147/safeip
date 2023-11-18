@@ -33,7 +33,7 @@ brews:
     homepage: https://github.com/darklight147/safeip
     tap:
       owner: darklight147
-      name: safeip
+      name: homebrew-safeip
     commit_author:
       name: darklight147
       email: belkamelmohamed@gmail.com
