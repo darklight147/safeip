@@ -1,4 +1,4 @@
-module ip-masker
+module github.com/darklight147/safeip
 
 go 1.20
 
