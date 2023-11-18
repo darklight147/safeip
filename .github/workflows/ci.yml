@@ -75,7 +75,6 @@ jobs:
       - name: Test if IP is masked ${{ runner.os }}
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          # BEGIN: ed8c6549bwf9
           $env:MASK = "XXX.XXX.XXX.XXX"
 
           & ./safeip.exe | Out-File -FilePath test-1.txt
