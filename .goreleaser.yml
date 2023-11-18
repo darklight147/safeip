@@ -36,16 +36,16 @@ brews:
       name: darklight147
       email: belkamelmohamed@gmail.com
 
-    post_install: |
-      echo "To get started:"
-      echo "  safeip --help"
-      echo "Documentation can be found at https://github.com/darklight147/safeip"
-      echo "For completion use"
+    extra_install: |-
+      bash_completion.install "completions/goreleaser.bash" => "goreleaser"
+      zsh_completion.install "completions/goreleaser.zsh" => "_goreleaser"
+      fish_completion.install "completions/goreleaser.fish"
 
-      echo " source <(safeip completion zsh) # or bash, fish"
+    description: "safeip is a CLI tool to Mask IP addresses and DNS-Like entries from STDIN or FILE."
 
 before:
   hooks:
+    - mkdir completions
     - go run main.go completion zsh > completions/goreleaser.zsh && chmod 755 completions/goreleaser.zsh
     - go run main.go completion fish > completions/goreleaser.fish && chmod 755 completions/goreleaser.fish
     - go run main.go completion bash > completions/goreleaser.bash && chmod 755 completions/goreleaser.bash
