@@ -24,7 +24,7 @@ archives:
       - completions/*
     builds_info:
       group: root
-      user: root
+      owner: root
 
 # Release configuration
 release:
