@@ -18,12 +18,13 @@ builds:
 archives:
   - name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
     format: tar.gz
+
+  - id: completions
     files:
-      - README.md
       - completions/*
     builds_info:
       group: root
-      owner: root
+      user: root
 
 # Release configuration
 release:
