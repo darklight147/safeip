@@ -34,6 +34,13 @@ safeip --help
 
 You can download a pre-built binary for your system from the [releases page](https://github.com/darklight147/safeip/releases).
 
+## Using Homebrew
+
+```bash
+brew tap darklight147/safeip
+brew install safeip
+```
+
 ### Usage
 
 **Basic Usage:**
